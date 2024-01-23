@@ -1,30 +1,28 @@
 import os
 import time
+import pynput
 from pynput.keyboard import Key, Controller
 import threading
+import subprocess
 
-keyboard = Controller() 
-
+keyboard = Controller()
 def os_f(root,file):
-    os.system(os.path.join(root, file)) #executing jpg file
+    os.system(os.path.join(root, file))
 
-# Указываем корневой каталог, с которого хотим начать обход
-root_directory = r"D:\11\22"
-
-# Используем цикл для обхода всех подкаталогов и файлов
-for root, directories, files in os.walk(root_directory):
-    for directory in directories:
-        print("Подкаталог:", os.path.join(root, directory))
-        
+def key_emulation(root, files):
     thr1 = threading.Thread(target = os_f, args = (root, files[0]))
     thr1.start()
     for i in range(len(files)):
         time.sleep(5)
         keyboard.press(Key.right)
 
-
-    # for file in files:
-    #     if file.endswith('jpg'):
-    #         print("Файл:", os.path.join(root, file))
-    #         os.system(os.path.join(root, file))
-    #     time.sleep(1)
+root_directory = r"D:\ProjectPython\My_Projects\photo_frame\input"
+for root, directories, files in os.walk(root_directory):
+    
+    for file in files:
+        if file.endswith('jpg'):
+            key_emulation(root, files)
+            
+            break
+    subprocess.call(["taskkill", "/F", "/IM", "C:\Program Files\HONOR\PCManager\HnPhotoViewer.exe"])
+#"C:\Program Files\HONOR\PCManager\HnPhotoViewer.exe"
