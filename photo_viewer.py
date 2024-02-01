@@ -21,7 +21,7 @@ def key_emulation(root, files):
     with keyboard.pressed(Key.alt_l): # Keyboard action emulation (Alt+F4) for switch off ImageViewer
         keyboard.press(Key.f4)
 
-root_directory = r"D:\ProjectPython\My_Projects\photo_frame\input"
+root_directory = r"E:\Foto"
 
 for root, directories, files in os.walk(root_directory):
     
